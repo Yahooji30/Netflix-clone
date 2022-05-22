@@ -16,8 +16,8 @@
             class="w-14 md:w-28 md:mb-8"
           />
         </div>
-        <div class="pb-3">
-          <label class="font-sans text-4xl tracking-wider text-gray-100"
+        <div class="pb-0">
+          <label class="font-sans text-3xl tracking-wider text-gray-100"
             >Sign In</label
           >
         </div>
@@ -86,14 +86,12 @@
                     <p class="text-xs">2022 | Netflix India Pvt Ltd.</p>
                 </div> -->
       </form>
-
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { signin, signout } from "../firebase/firebase";
 import { errorMessage } from "../firebase/fberrors";
@@ -124,6 +122,7 @@ const signInMehod = async () => {
 const signOutMethod = async () => {
   await signout();
 };
+
 </script>
 
 <style scoped>

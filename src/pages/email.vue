@@ -53,14 +53,14 @@
 
         <div class="w-full pt-6 pb-6">
           <button
-            class="w-full rounded bg-red-700 py-3 text-base tracking-wider text-white hover:bg-red-800"
+            class="w-full rounded bg-red-700 py-3 text-base tracking-wider text-white hover:bg-red-800 "
           >
             Reset Password
           </button>
         </div>
 
         <div class="pb-3 text-center tracking-wider">
-          <router-link to="/" class="text-red-700">
+          <router-link to="/login" class="text-red-700">
             <span class="text-gray-400">Already Account ? </span>
             Sign In
           </router-link>
@@ -69,7 +69,7 @@
 
       <div
         v-else
-        class="bg-black md:rounded-xl flex flex-col justify-center w-full px-4 h-[70%] md:h-[30rem] md:bottom-0 md:py-14 md:px-10"
+        class="bg-black md:rounded-xl flex flex-col justify-center items-center w-full px-4 h-screen md:h-[30rem] md:bottom-0 md:py-14 md:px-10"
       >
         <div class="w-full flex justify-center pt-10 pb-16 md:pb-2">
           <img
@@ -119,7 +119,9 @@ const getResetLink = async () => {
     isVisible.value = false;
     setTimeout(() => {
       isShow.value = false;
-    }, 2000);
+      isVisible.value = true
+      email.value = ''
+    }, 5000);
   } catch (err) {
     isError.value = isShow.value = true;
     message.value = errorMessage(err.code);
@@ -129,6 +131,8 @@ const getResetLink = async () => {
     console.log(err);
   }
 };
+
+
 </script>
 
 <style scoped>
