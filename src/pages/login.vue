@@ -95,9 +95,11 @@ import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { signin, signout } from "../firebase/firebase";
 import { errorMessage } from "../firebase/fberrors";
+import { useRouter } from "vue-router";
 
 const store = useStore();
 
+const router = useRouter();
 const isHide = ref(true);
 const isError = ref(false);
 const error = ref("");
@@ -109,6 +111,7 @@ const data = reactive({
 const signInMehod = async () => {
   try {
     await signin(data);
+    router.push("/");
   } catch (err) {
     isError.value = true;
     error.value = errorMessage(err.code);
@@ -122,7 +125,6 @@ const signInMehod = async () => {
 const signOutMethod = async () => {
   await signout();
 };
-
 </script>
 
 <style scoped>

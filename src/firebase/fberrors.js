@@ -1,6 +1,5 @@
 export const errorMessage = (errCode) => {
   let error;
-
   switch (errCode) {
     case "auth/user-not-found":
       error = "Opps user not found";

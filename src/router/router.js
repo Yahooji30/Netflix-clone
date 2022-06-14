@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
-
-// import Login from "../pages/login.vue";
-// import Email from "../pages/email.vue";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Home from "../pages/home.vue";
+import Login from "../pages/login.vue";
 
 const route = [
   {
     path: "/",
     name: "home",
-    component: () => import("../pages/home.vue"),
+    component: Home,
+    meta: { requiredAuth: true },
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("../pages/login.vue"),
+    component: Login,
   },
   {
     path: "/forgot/email",
@@ -34,6 +35,31 @@ const router = createRouter({
       };
     }
   },
+});
+
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      getAuth(),
+      (user) => {
+        removeListener();
+        resolve(user);
+      },
+      reject
+    );
+  });
+};
+
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiredAuth)) {
+    if (await getCurrentUser()) {
+      next();
+    } else {
+      next("/login");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
