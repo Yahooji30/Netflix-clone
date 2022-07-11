@@ -52,26 +52,33 @@
 
 <script async setup>
 import { onBeforeMount, onMounted, ref } from "vue";
-import instance from "../axios";
+// import instance from "../axios";
 import { IMG } from "../constant";
+import axios from "axios";
 
 const props = defineProps({
   title: String,
-  url: String,
   isLarge: {
     type: Boolean,
     default: false,
   },
 });
 
-const { title, url, isLarge } = props;
+const { title, isLarge } = props;
 const movies = ref(null);
 
 async function fetchData() {
-  const response = await instance.get(url);
-  movies.value = response.data.results;
+  console.log("call");
+  const response = await axios.get("http://localhost:5500/movie");
+  console.log("Res : ", response);
+  movies.value = response.data;
 }
-await fetchData();
+try {
+  await fetchData();
+} catch (error) {
+  console.log(error);
+}
+
 // onMounted(() => {});
 </script>
 

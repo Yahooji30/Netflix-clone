@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Home from "../pages/home.vue";
 import Login from "../pages/login.vue";
+import SignUp from "../pages/signup.vue";
+import Movie from "../pages/movie.vue";
 
 const route = [
   {
@@ -11,9 +13,19 @@ const route = [
     meta: { requiredAuth: true },
   },
   {
+    path: "/signup",
+    name: "signup",
+    component: SignUp,
+  },
+  {
     path: "/login",
     name: "login",
     component: Login,
+  },
+  {
+    path: "/movie/:id",
+    name: "movie",
+    component: Movie,
   },
   {
     path: "/forgot/email",

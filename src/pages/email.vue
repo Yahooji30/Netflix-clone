@@ -41,7 +41,7 @@
             class="mt-2 w-full rounded border-none bg-gray-900 px-4 py-3 text-gray-300 outline-none ring-2 ring-gray-800 focus:ring-red-700"
             required
             autofocus
-            v-model.lazy="email"
+            v-model="email"
           />
         </div>
 
@@ -53,7 +53,7 @@
 
         <div class="w-full pt-6 pb-6">
           <button
-            class="w-full rounded bg-red-700 py-3 text-base tracking-wider text-white hover:bg-red-800 "
+            class="w-full rounded bg-red-700 py-3 text-base tracking-wider text-white hover:bg-red-800"
           >
             Reset Password
           </button>
@@ -100,10 +100,9 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { errorMessage } from "../firebase/fberrors";
-import { forgotpassword } from "../firebase/firebase";
 
 const store = useStore();
 const email = ref("");
@@ -114,13 +113,13 @@ const isVisible = ref(true);
 
 const getResetLink = async () => {
   try {
-    await forgotpassword(email.value);
+    await store.dispatch("forgotPassword", email.value);
     isShow.value = true;
     isVisible.value = false;
     setTimeout(() => {
       isShow.value = false;
-      isVisible.value = true
-      email.value = ''
+      isVisible.value = true;
+      email.value = "";
     }, 5000);
   } catch (err) {
     isError.value = isShow.value = true;
@@ -131,8 +130,6 @@ const getResetLink = async () => {
     console.log(err);
   }
 };
-
-
 </script>
 
 <style scoped>
